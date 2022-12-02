@@ -18,7 +18,8 @@ list of numbers."
     (let* ((file-contents (buffer-string))
 	   (elf-groups (split-string file-contents "\n\n" t))
 	   (elf-list (mapcar #'convert-to-number-list elf-groups))
-	   (elf-sums (mapcar #'sum-list elf-list)))
-      (seq-max elf-sums))))
+	   (elf-sums (mapcar #'sum-list elf-list))
+	   (sorted (seq-sort #'> elf-sums)))
+      (sum-list (cl-loop for i from 0 to 2 collect (nth i sorted))))))
 
 (solve)
